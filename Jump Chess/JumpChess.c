@@ -91,7 +91,7 @@ void place(struct Command cmd, int cur_flag)
 }
 /**
  * YOUR CODE BEGIN
- * ÄãµÄ´úÂë¿ªÊ¼
+ * ä½ çš„ä»£ç å¼€å§‹
  */
 int moveDir[4][2] = { {1, -1}, {1, 1}, {-1, -1}, {-1, 1} };
 int jumpDir[4][2] = { {2, -2}, {2, 2}, {-2, -2}, {-2, 2} };
@@ -104,8 +104,8 @@ struct Command cur_command = { .x = {0},.y = {0},.numStep = 0 };
 struct Command jumpCmd = { .x = {0},.y = {0},.numStep = 0 };
 struct Command longestJumpCmd = { .x = {0},.y = {0},.numStep = 1 };
 
-/*********¹ÀÖµº¯Êı********/
-int point(int me)//ÔÙ¼ì²âÊÇ·ñ»á±»³Ô×Ó
+/*********ä¼°å€¼å‡½æ•°********/
+int point(int me)//å†æ£€æµ‹æ˜¯å¦ä¼šè¢«åƒå­
 {
 	int score = 0;
 	int me_score = 0, other_score = 0;
@@ -114,7 +114,7 @@ int point(int me)//ÔÙ¼ì²âÊÇ·ñ»á±»³Ô×Ó
 	{
 		for (int j = 0; j < BOARD_SIZE; j++)
 		{
-			//Í³¼Æ¼º·½×ÓÊıÓëÍõ×ÓÊı
+			//ç»Ÿè®¡å·±æ–¹å­æ•°ä¸ç‹å­æ•°
 			if (virtual_board[i][j] == BLACK)
 				me_score += 5;
 			else if (virtual_board[i][j] == king_BLACK)
@@ -125,7 +125,7 @@ int point(int me)//ÔÙ¼ì²âÊÇ·ñ»á±»³Ô×Ó
 				other_score += 50;
 			if (virtual_board[i][j] == BLACK)
 			{
-				//Á¬³ÔĞè¾¡¿ÉÄÜ±ÜÃâ£¬
+				//è¿åƒéœ€å°½å¯èƒ½é¿å…ï¼Œ
 				if (isInBound(i - 1, j - 1) && isInBound(i + 1, j + 1) && virtual_board[i - 1][j - 1] == WHITE && virtual_board[i + 1][j + 1] == EMPTY && (if_eat_white(i + 1, j + 1) == 1))
 					me_score -= 30;
 				else if (isInBound(i - 1, j + 1) && isInBound(i + 1, j - 1) && virtual_board[i - 1][j + 1] == WHITE && virtual_board[i + 1][j - 1] == EMPTY && (if_eat_white(i + 1, j - 1)== 1))
@@ -134,7 +134,7 @@ int point(int me)//ÔÙ¼ì²âÊÇ·ñ»á±»³Ô×Ó
 					me_score -= 30;
 				else if (isInBound(i + 1, j - 1) && isInBound(i - 1, j + 1) && virtual_board[i + 1][j - 1] == WHITE && virtual_board[i - 1][j + 1] == EMPTY && (if_eat_white(i - 1, j + 1) == 1))
 					me_score -= 30;
-				//µ¥³Ô
+				//å•åƒ
 				else if (isInBound(i - 1, j - 1) && isInBound(i + 1, j + 1) && virtual_board[i - 1][j - 1] == WHITE && virtual_board[i + 1][j + 1] == EMPTY && (if_eat_white(i + 1, j + 1) == 0))
 					me_score -= 20;
 				else if (isInBound(i - 1, j + 1) && isInBound(i + 1, j - 1) && virtual_board[i - 1][j + 1] == WHITE && virtual_board[i + 1][j - 1] == EMPTY && (if_eat_white(i + 1, j - 1) == 0))
@@ -145,7 +145,7 @@ int point(int me)//ÔÙ¼ì²âÊÇ·ñ»á±»³Ô×Ó
 					me_score -= 20;
 
 				if (isInBound(i + 2, j) && isInBound(i + 1, j + 1) && isInBound(i + 2, j + 2) && isInBound(i, j + 2) && virtual_board[i][j] == BLACK && virtual_board[i + 2][j] == BLACK && virtual_board[i + 1][j + 1] == EMPTY && virtual_board[i][j + 2] == BLACK && virtual_board[i + 2][j + 2] == BLACK)
-					me_score -= 10;//ËÄ×Ó¿ÕĞÄÇé¿ö
+					me_score -= 10;//å››å­ç©ºå¿ƒæƒ…å†µ
 			}
 
 		}
@@ -153,7 +153,7 @@ int point(int me)//ÔÙ¼ì²âÊÇ·ñ»á±»³Ô×Ó
 	score = me_score - other_score;
 	return score;
 }
-//ºÚ°××ªÖÃ
+//é»‘ç™½è½¬ç½®
 void rotateCommand(struct Command* cmd)
 {
 	if (me_flag == WHITE)
@@ -165,14 +165,14 @@ void rotateCommand(struct Command* cmd)
 		}
 	}
 }
-// aiÔËĞĞÖĞ×ß×Ó
+// aiè¿è¡Œä¸­èµ°å­
 void set(int x1, int y1, int x_next, int y_next)
 {
 	virtual_board[x_next][y_next] = virtual_board[x1][y1];
 	virtual_board[x1][y1] = EMPTY;
 }
 /*
-*Äã¿ÉÒÔÔÚÕâÀï³õÊ¼»¯ÄãµÄAI*
+*ä½ å¯ä»¥åœ¨è¿™é‡Œåˆå§‹åŒ–ä½ çš„AI*
 */
 void tryToJump(int x, int y, int currentStep)
 {
@@ -199,7 +199,7 @@ void tryToJump(int x, int y, int currentStep)
 			virtual_board[midX][midY] = tmpFlag;
 		}
 	}
-	if (jumpCmd.numStep >= longestJumpCmd.numStep)//ÊÇÑ¡ÔñºóËÑµ½µÄºÃ»¹ÊÇÏÈËÑµ½µÄºÃ£¿´ı²âÊÔ
+	if (jumpCmd.numStep >= longestJumpCmd.numStep)//æ˜¯é€‰æ‹©åæœåˆ°çš„å¥½è¿˜æ˜¯å…ˆæœåˆ°çš„å¥½ï¼Ÿå¾…æµ‹è¯•
 	{
 		memcpy(&longestJumpCmd, &jumpCmd, sizeof(struct Command));
 	}
@@ -253,25 +253,25 @@ int if_eat_white(int x, int y)
 	else
 		return 0;
 }
-//************************************************ÏÈĞ´Ò»¸öÈı²ãmaxmin,ÈçºÎ³õÊ¼»¯£¿Ê²Ã´ÊÇ³õÊ¼»¯£¿
-//// initaiÀïµÄÖµÈçºÎ´«³öÀ´£¬»¹ÊÇÖ±½ÓÔÚaiturnÀïĞ´£¿
-//Ôİ¶¨³õÊ¼»¯Îª ¡°½«¿É¶¯Æå×Ó»îĞÔ»¯¡±
+//************************************************å…ˆå†™ä¸€ä¸ªä¸‰å±‚maxmin,å¦‚ä½•åˆå§‹åŒ–ï¼Ÿä»€ä¹ˆæ˜¯åˆå§‹åŒ–ï¼Ÿ
+//// initaié‡Œçš„å€¼å¦‚ä½•ä¼ å‡ºæ¥ï¼Œè¿˜æ˜¯ç›´æ¥åœ¨aiturné‡Œå†™ï¼Ÿ
+//æš‚å®šåˆå§‹åŒ–ä¸º â€œå°†å¯åŠ¨æ£‹å­æ´»æ€§åŒ–â€
 void initAI(int me)
 {
 
 	return;
 }
 /**
- * ÂÖµ½ÄãÂä×Ó¡£
- * ÆåÅÌÉÏ0±íÊ¾¿Õ°×£¬1±íÊ¾ºÚÆå£¬2±íÊ¾°×Æì
- * me±íÊ¾ÄãËù´ú±íµÄÆå×Ó(1»ò2)
- * ÄãĞèÒª·µ»ØÒ»¸ö½á¹¹ÌåCommand£¬ÆäÖĞnumStepÊÇÄãÒªÒÆ¶¯µÄÆå×Ó¾­¹ıµÄ¸ñ×ÓÊı£¨º¬Æğµã¡¢ÖÕµã£©£¬
- * x¡¢y·Ö±ğÊÇ¸ÃÆå×ÓÒÀ´Î¾­¹ıµÄÃ¿¸ö¸ñ×ÓµÄºá¡¢×İ×ø±ê
+ * è½®åˆ°ä½ è½å­ã€‚
+ * æ£‹ç›˜ä¸Š0è¡¨ç¤ºç©ºç™½ï¼Œ1è¡¨ç¤ºé»‘æ£‹ï¼Œ2è¡¨ç¤ºç™½æ——
+ * meè¡¨ç¤ºä½ æ‰€ä»£è¡¨çš„æ£‹å­(1æˆ–2)
+ * ä½ éœ€è¦è¿”å›ä¸€ä¸ªç»“æ„ä½“Commandï¼Œå…¶ä¸­numStepæ˜¯ä½ è¦ç§»åŠ¨çš„æ£‹å­ç»è¿‡çš„æ ¼å­æ•°ï¼ˆå«èµ·ç‚¹ã€ç»ˆç‚¹ï¼‰ï¼Œ
+ * xã€yåˆ†åˆ«æ˜¯è¯¥æ£‹å­ä¾æ¬¡ç»è¿‡çš„æ¯ä¸ªæ ¼å­çš„æ¨ªã€çºµåæ ‡
  */
 struct Command aiTurn(const char board[BOARD_SIZE][BOARD_SIZE], int me)
 {
 	//if (num <= 2 && me == BLACK)
-	//return firstTwo(me);//Ç°Èı°å¹Ì¶¨Ì×Â·£¬¾¡Á¿½ÚÊ¡Ê±¼ä
+	//return firstTwo(me);//å‰ä¸‰æ¿å›ºå®šå¥—è·¯ï¼Œå°½é‡èŠ‚çœæ—¶é—´
 
 	int eat_count = 0;
 	int score_max = 0, cur_score = 0;
